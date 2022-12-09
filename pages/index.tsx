@@ -51,7 +51,7 @@ export default function Home() {
                   
                   style={
                     item.imgAlt.includes("dummy")
-                      ? { height: "revert-layer", width: "auto" }
+                      ? { height: "auto", maxWidth: "50%", }
                       : { height: "auto", width: "100%" }
                   }
                   alt={`${item.imgAlt} ${index + 1}`}
