@@ -116,8 +116,8 @@ export const cardArray = [
     },
     {
         id: 20,
-        imgScr: img2,
-        imgAlt: 'interesting profile'
+        imgScr: dummy2,
+        imgAlt: 'dummy'
     },
     {
         id: 21,
@@ -131,8 +131,8 @@ export const cardArray = [
     },
     {
         id: 23,
-        imgScr: img2,
-        imgAlt: 'interesting profile'
+        imgScr: dummy2,
+        imgAlt: 'dummy'
     },
   
 ]
