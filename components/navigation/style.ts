@@ -18,3 +18,24 @@ export const Handle = styled(motion.div)`
   background-color: white;
   border-radius: 40px;
 `
+
+export const SideBar = styled.nav`
+  width: 3rem;
+  background-color: #202222;
+  border-top: 1px #404040 solid;
+`;
+
+export const TopBar = styled.nav`
+  width: 100%;
+  height: 3rem;
+  background-color: #202222;
+  /* border-top: 1px #404040 solid; */
+`;
+
+export const Hamburger = styled.nav`
+  width: 3rem;
+  height: 3rem;
+  background-color: #202222;
+  border-left: 1px #404040 solid;
+  /* cursor: pointer; */
+`;

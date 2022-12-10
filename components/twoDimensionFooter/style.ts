@@ -11,6 +11,9 @@ export const EmptySpace = styled.div`
   position: relative;
   border-right: 1px solid #404040;
   grid-column: span 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const Copyright = styled.div`
   padding: 2.5rem 1.1rem 4rem 1.1rem;
