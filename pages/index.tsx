@@ -1,11 +1,15 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { useState, Fragment} from "react";
+import { useState, Fragment } from "react";
 import Image from "next/image";
 import { cardArray } from "../components/cardArray";
+import {motion} from 'framer-motion'
+import nhlLogo from '../assets/nhlpa-logo-full.png'
 
 import { Main } from "../components/main/style";
+import { TwoDimentionSection } from "../components/twoDimensionSection/style";
 import { TwoDimentionGrid, Card } from "../components/twoDimensionGrid/style";
+import {TwoDimensionFooter, EmptySpace, Copyright} from "../components/twoDimensionFooter/style"
 import { Switch, Handle } from "../components/toggle/style";
 
 export default function Home() {
@@ -17,6 +21,75 @@ export default function Home() {
     stiffness: 700,
     damping: 30,
   };
+
+  const sectionVariants = {
+    open: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        y: {  stiffness: 1000, velocity: -100 },
+        opacity: { duration: 1}
+      },
+    },
+    closed: {
+      y: 1000,
+      opacity: 0,
+      transition: {
+        y: {  stiffness: 1000 },
+        opacity: { duration: 1}
+        
+      },
+    },
+  };
+
+  const parentVariants = {
+    open: {
+      transition: {
+        staggerChildren: 1,
+        delayChildren: 1,
+      },
+    },
+    closed: {
+      transition: {
+        staggerChildren: 1,
+        staggerDirection: -1,
+      },
+    },
+  };
+
+  const childVariants = {
+    open: {
+      opacity: 1,
+      transition: {
+        opacity: { stiffness: 1000, velocity: -100, duration: 1 },
+      },
+    },
+    closed: {
+      opacity: 0,
+      transition: {
+        opacity: { stiffness: 1000, duration: 1 },
+      },
+    },
+  };
+
+  const imageVariants = {
+    open: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        y: { stiffness: 1000, velocity: -100, duration: 1 },
+        opacity: { stiffness: 1000, velocity: -100, duration: 1 },
+      },
+    },
+    closed: {
+      y: 100,
+      opacity: 0,
+      transition: {
+        y: { stiffness: 1000, duration: 1 },
+        opacity: { stiffness: 1000, duration: 1 },
+      },
+    },
+  }
 
   const randomizer = () => {
     const options = ["flex-end", "flex-start"];
@@ -34,34 +107,72 @@ export default function Home() {
 
       <Main>
         {/* <Switch toggle={isOn} onClick={toggleSwitch}>
-            <Handle layout transition={spring}></Handle>
-          </Switch> */}
-        <TwoDimentionGrid>
-          {cardArray.map((item, index) => (
-            <Fragment key={`fragment${index}`}>
-              <Card
-                style={
-                  item.imgAlt.includes("dummy")
-                    ? { justifyContent: randomizer(), alignItems: randomizer() }
-                    : { justifyContent: "center", alignItems: "center" }
-                }
-                
-              >
-                <Image
-                  
+          <Handle layout transition={spring}></Handle>
+        </Switch> */}
+        <TwoDimentionSection 
+        variants={sectionVariants}
+        initial="closed"
+        animate={isOn ? "open" : "closed"}
+        >
+          <TwoDimentionGrid 
+          variants={parentVariants}>
+            {cardArray.map((item, index) => (
+              <Fragment 
+              key={`fragment${index}`}>
+                <Card
+                  variants={childVariants}
+                  initial="closed"
+                  whileInView="open"
+                  viewport={{ once: true }}
                   style={
                     item.imgAlt.includes("dummy")
-                      ? { height: "auto", maxWidth: "50%", }
-                      : { height: "auto", width: "100%" }
+                      ? {
+                          justifyContent: randomizer(),
+                          alignItems: randomizer(),
+                        }
+                      : { justifyContent: "center", alignItems: "center" }
                   }
-                  alt={`${item.imgAlt} ${index + 1}`}
-                  src={item.imgScr}
-                />
-                <p >{index + 1}</p>
-              </Card>
-            </Fragment>
-          ))}
-        </TwoDimentionGrid>
+                >
+                  <motion.span
+                  style={
+                      item.imgAlt.includes("dummy")
+                        ? { height: "auto", width: "100%" }
+                        : { height: "100%", width: "100%" }
+                    }
+                  variants={imageVariants}
+                  initial="closed"
+                  whileInView="open"
+                  viewport={{ once: true }}
+                  >
+                  <Image
+                  
+                    style={
+                      item.imgAlt.includes("dummy")
+                        ? { height: "auto", maxWidth: "50%" }
+                        : { height: "100%", width: "100%" }
+                    }
+                    alt={`${item.imgAlt} ${index + 1}`}
+                    src={item.imgScr}
+                  />
+                  </motion.span>
+                  {/* <p>{index + 1}</p> */}
+                </Card>
+              </Fragment>
+            ))}
+          </TwoDimentionGrid>
+        <TwoDimensionFooter>
+          <EmptySpace>
+
+          </EmptySpace>
+          <Copyright>
+            <Image 
+            src={nhlLogo}
+            alt="NHLPA Logo"
+            />
+            <p>Copyright © 2022. National Hockey League Players' Association</p>
+          </Copyright>
+        </TwoDimensionFooter>
+        </TwoDimentionSection>
       </Main>
     </div>
   );
