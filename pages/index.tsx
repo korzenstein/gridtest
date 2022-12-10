@@ -181,7 +181,7 @@ export default function Home() {
             <Copyright>
               <Image src={nhlLogo} alt="NHLPA Logo" />
               <p>
-                Copyright © 2022. National Hockey League Players' Association
+                Copyright © 2022. National Hockey League Players Association
               </p>
             </Copyright>
           </TwoDimensionFooter>
