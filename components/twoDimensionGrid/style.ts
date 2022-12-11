@@ -18,7 +18,7 @@ export const TwoDimentionGrid = styled(motion.ul)`
 export const Card = styled(motion.li)`
   display: flex;
   padding: 1rem;
-  box-shadow: inset 0 1px #404040, inset -1px 0 #404040;
+  box-shadow: 1px 1px inset #404040;
   position: relative;
 
   p {
@@ -27,20 +27,27 @@ export const Card = styled(motion.li)`
     font-size: 1.3rem;
     left: 22px;
   }
-  &:nth-child(1) {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-  &:nth-child(8n) {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-  &:nth-child(16n) {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
+
+
+  &:nth-child(1),
+  &:nth-child(8n),
+  &:nth-child(16n),
   &:nth-child(24n) {
     grid-column: span 2;
     grid-row: span 2;
+  }
+
+  @media screen and (max-width: 768px) {
+    &:nth-child(1),
+    &:nth-child(8n),
+    &:nth-child(16n),
+    &:nth-child(24n) {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+    
+    &:last-child {
+      display: none;
+    }
   }
 `;
