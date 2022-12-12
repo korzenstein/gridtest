@@ -35,12 +35,13 @@ export const Handle = styled(motion.div)`
 `
 
 export const SideBar = styled.div`
-  min-width: 3rem;
+  width: 3rem;
   background-color: ${(props) => props.bg ? `#202222`: `transparent`};
   border-left: 1px #404040 solid;
-  position: sticky;
-  height: 100vh;
+  position: absolute;
+  height: 100%;
   z-index:20;
+
   top: 0;
   right: 0;
 `;
@@ -53,22 +54,21 @@ export const SideBarExpanded = styled(motion.nav)`
   right: 0;
   z-index: 20;
 
-  &:after {
+  /* &:after {
     content: "";
-    /* position: absolute; */
+    position: absolute;
     top: 30px;
   right: 0;
   width: 100%;
   border-bottom: 1px solid black;
-  }
-  /* cursor: pointer; */
+  } */
 `;
 
 export const TopBar = styled.div`
   width: 100%;
   height: 3rem;
   display: flex;
-  justify-content:space-between;
+  justify-content:flex-start;
   align-items:center;
   gap: 20rem;
   top: 0;
@@ -80,6 +80,8 @@ export const TopBar = styled.div`
 
   span {
      z-index: 100;
+  
+     margin: 14px 0 14px 20px;
   }
 
 `;

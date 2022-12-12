@@ -123,10 +123,10 @@ export default function Home() {
 
   const topVariants = {
     open: {
-      height: "40vh",
+      height: "600%",
     },
     closed: {
-      height: "0",
+      height: "0%",
     },
   };
 
@@ -184,12 +184,15 @@ export default function Home() {
           position: "relative",
         }}
       >
+        
+        
         <SideBarExpanded
           transition={{ duration: 0.6 }}
           variants={sideVariants}
           initial="closed"
           animate={sideOpen ? "open" : "closed"}
         ></SideBarExpanded>
+        
 
         <TopBar 
         bg={dimensionChoice}
@@ -211,9 +214,8 @@ export default function Home() {
             <HamburgerIcon topOpen={topOpen} />
           </Hamburger>
 
-          <SideBar
-          bg={dimensionChoice}
-          ></SideBar>
+        
+          
           <TopBarExpanded
             transition={{ duration: 0.6 }}
             variants={topVariants}
@@ -229,7 +231,12 @@ export default function Home() {
             
             </motion.ul> */}
           </TopBarExpanded>
+          
         </TopBar>
+            <SideBar
+          bg={dimensionChoice}
+          ></SideBar>
+        
 
         <Main>
           <TwoDimentionSection
