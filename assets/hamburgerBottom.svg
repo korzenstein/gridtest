@@ -3,8 +3,5 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="23px" height="15px" viewBox="0 0 23 15" enable-background="new 0 0 23 15" xml:space="preserve">
-<path fill="none" stroke="#CCF267" stroke-width="0.01" stroke-miterlimit="10" d="M0,0h21.5C22.328,0,23,0.671,23,1.5
-	S22.328,3,21.5,3H0V0z"/>
-<path fill="none" stroke="#CCF267" stroke-width="0.01" stroke-miterlimit="10" d="M0,12h21.5c0.828,0,1.5,0.672,1.5,1.5
-	S22.328,15,21.5,15H0V12z"/>
+<path fill="#CCF267" d="M0,12h21.5c0.828,0,1.5,0.672,1.5,1.5S22.328,15,21.5,15H0V12z"/>
 </svg>

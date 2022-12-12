@@ -3,12 +3,14 @@ import { useState, Fragment } from "react";
 import Image from "next/image";
 import { cardArray } from "../components/cardArray";
 import { motion } from "framer-motion";
+import Link from 'next/link'
 
 import nhlLogo from "../assets/nhlpa-logo-full.png";
 import arrowUp from "../assets/arrowUp.png";
 import Icon2D from "../assets/Icon2D";
 import Icon3D from "../assets/Icon3D";
-import hamburger from "../assets/hamburger.svg";
+import Logo from "../assets/Logo";
+import HamburgerIcon from "../assets/HamburgerIcon";
 
 import { Main } from "../components/main/style";
 
@@ -27,7 +29,7 @@ import {
   SideBar,
   Hamburger,
   SideBarExpanded,
-  TopBarExpanded
+  TopBarExpanded,
 } from "../components/navigation/style";
 
 export default function Home() {
@@ -112,34 +114,37 @@ export default function Home() {
 
   const sideVariants = {
     open: {
-      width: '70%',
+      width: "70%",
     },
     closed: {
-      width: '0%',
+      width: "0%",
     },
   };
 
   const topVariants = {
     open: {
-      height: '70px',
+      height: "40vh",
     },
     closed: {
-      height: '0',
+      height: "0",
     },
   };
 
-  const toggleSwitch = () => setDimensionChoice(!dimensionChoice);
+  const handleDimension = () => {
+    setDimensionChoice(!dimensionChoice)
+    setSideOpen(false);
+  };
 
   const handleSideExpand = (id) => {
     setSideOpen(!sideOpen);
-    setTopOpen(false)
+    setTopOpen(false);
     setPlayerChoice(id);
   };
 
   const handleTopExpand = () => {
-    setSideOpen(false)
-    setTopOpen(!topOpen)
-  }
+    setSideOpen(false);
+    setTopOpen(!topOpen);
+  };
 
   const randomizer = () => {
     const options = ["flex-end", "flex-start"];
@@ -147,6 +152,24 @@ export default function Home() {
     return options[randomNumber];
   };
 
+  const navigationArray = [
+    {
+      title: "Meet the players",
+      route: '/'
+    },
+    {
+      title: "Play the film",
+      route: '/'
+    },
+    {
+      title: "Win the bag",
+      route: '/'
+    },
+    {
+      title: "Copyright",
+      route: '/'
+    },
+  ]
   return (
     <div>
       <Head>
@@ -161,14 +184,6 @@ export default function Home() {
           position: "relative",
         }}
       >
-        <TopBarExpanded
-        transition={{ duration: 0.6 }}
-          variants={topVariants}
-          initial="closed"
-          animate={topOpen ? "open" : "closed"}
-        >
-          
-        </TopBarExpanded>
         <SideBarExpanded
           transition={{ duration: 0.6 }}
           variants={sideVariants}
@@ -176,20 +191,44 @@ export default function Home() {
           animate={sideOpen ? "open" : "closed"}
         ></SideBarExpanded>
 
-        <TopBar>
-          <Switch toggle={dimensionChoice} onClick={toggleSwitch}>
+        <TopBar 
+        bg={dimensionChoice}
+        >
+          <span>
+            <Logo topOpen={topOpen}></Logo>
+          </span>
+
+          <Switch 
+          animate={topOpen ? {opacity: 0, pointerEvents: 'none'} : {opacity: 1}}
+          toggle={dimensionChoice} 
+          onClick={handleDimension}>
             <Handle layout transition={spring}></Handle>
             <Icon3D dimensionChoice={dimensionChoice} />
             <Icon2D dimensionChoice={dimensionChoice} />
           </Switch>
-          <Hamburger
-          onClick={handleTopExpand}
+
+          <Hamburger onClick={handleTopExpand}>
+            <HamburgerIcon topOpen={topOpen} />
+          </Hamburger>
+
+          <SideBar
+          bg={dimensionChoice}
+          ></SideBar>
+          <TopBarExpanded
+            transition={{ duration: 0.6 }}
+            variants={topVariants}
+            initial="closed"
+            animate={topOpen ? "open" : "closed"}
           >
-              <Image src={hamburger} alt="Navigation menu" />
-            </Hamburger>
-          <SideBar>
+            {/* <motion.ul>
+              {navigationArray.map(item => (
+                <Link href={item.route}>
+                <motion.li>{item.title}</motion.li>
+                </Link>
+              ))}
             
-          </SideBar>
+            </motion.ul> */}
+          </TopBarExpanded>
         </TopBar>
 
         <Main>

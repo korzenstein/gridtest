@@ -8,6 +8,7 @@ export const Main = styled.main`
   padding-top: 3rem;
   padding-right: 3rem;
   
+  
  
 `
 
