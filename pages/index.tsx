@@ -2,8 +2,8 @@ import Head from "next/head";
 import { useState, Fragment } from "react";
 import Image from "next/image";
 import { cardArray } from "../components/cardArray";
-import { motion } from "framer-motion";
-import Link from 'next/link'
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 import nhlLogo from "../assets/nhlpa-logo-full.png";
 import arrowUp from "../assets/arrowUp.png";
@@ -65,12 +65,14 @@ export default function Home() {
 
   const parentVariants = {
     open: {
+      opacity: 1,
       transition: {
         staggerChildren: 1,
         delayChildren: 1,
       },
     },
     closed: {
+      opacity: 0,
       transition: {
         staggerChildren: 1,
         staggerDirection: -1,
@@ -131,7 +133,7 @@ export default function Home() {
   };
 
   const handleDimension = () => {
-    setDimensionChoice(!dimensionChoice)
+    setDimensionChoice(!dimensionChoice);
     setSideOpen(false);
   };
 
@@ -155,21 +157,21 @@ export default function Home() {
   const navigationArray = [
     {
       title: "Meet the players",
-      route: '/'
+      route: "/",
     },
     {
       title: "Play the film",
-      route: '/'
+      route: "/",
     },
     {
       title: "Win the bag",
-      route: '/'
+      route: "/",
     },
     {
       title: "Copyright",
-      route: '/'
+      route: "/",
     },
-  ]
+  ];
   return (
     <div>
       <Head>
@@ -184,27 +186,27 @@ export default function Home() {
           position: "relative",
         }}
       >
-        
-        
         <SideBarExpanded
           transition={{ duration: 0.6 }}
           variants={sideVariants}
           initial="closed"
           animate={sideOpen ? "open" : "closed"}
         ></SideBarExpanded>
-        
 
         <TopBar 
-        bg={dimensionChoice}
-        >
+        style={{transition: '0.7s ease-in-out all'}}
+        bg={dimensionChoice}>
           <span>
-            <Logo topOpen={topOpen}></Logo>
+            <Logo topOpen={topOpen}/>
           </span>
 
-          <Switch 
-          animate={topOpen ? {opacity: 0, pointerEvents: 'none'} : {opacity: 1}}
-          toggle={dimensionChoice} 
-          onClick={handleDimension}>
+          <Switch
+            animate={
+              topOpen ? { opacity: 0, pointerEvents: "none" } : { opacity: 1 }
+            }
+            toggle={dimensionChoice}
+            onClick={handleDimension}
+          >
             <Handle layout transition={spring}></Handle>
             <Icon3D dimensionChoice={dimensionChoice} />
             <Icon2D dimensionChoice={dimensionChoice} />
@@ -214,8 +216,6 @@ export default function Home() {
             <HamburgerIcon topOpen={topOpen} />
           </Hamburger>
 
-        
-          
           <TopBarExpanded
             transition={{ duration: 0.6 }}
             variants={topVariants}
@@ -231,27 +231,47 @@ export default function Home() {
             
             </motion.ul> */}
           </TopBarExpanded>
-          
         </TopBar>
-            <SideBar
-          bg={dimensionChoice}
-          ></SideBar>
-        
+        <SideBar 
+        style={{transition: '0.7s ease-in-out all'}}
+        bg={dimensionChoice}></SideBar>
 
-        <Main>
-          <TwoDimentionSection
+        <AnimatePresence>
+
+        <Main
+        // key="main"
+        // initial={{backgroundColor: '#202222'}}
+        // exit={{backgroundColor: 'blue'}}
+        
+        >
+          
+          {
+            dimensionChoice === true ? (
+
+              <TwoDimentionSection
+            key="section"
             variants={sectionVariants}
             initial="closed"
-            animate={dimensionChoice ? "open" : "closed"}
+            animate="open"
+            exit="closed"
           >
-            <TwoDimentionGrid variants={parentVariants}>
+            <TwoDimentionGrid 
+            key="grid"
+            initial="closed"
+            animate="open"
+            variants={parentVariants}
+            exit="closed"
+            >
               {cardArray.map((item, index) => (
-                <Fragment key={`fragment${index}`}>
+                <Fragment 
+                key={`fragment${index}`}>
                   <Card
+                    key={`card${index}`}
                     variants={childVariants}
                     initial="closed"
                     whileInView="open"
                     viewport={{ once: true }}
+                    exit="closed"
                     style={
                       item.imgAlt.includes("dummy")
                         ? {
@@ -267,17 +287,20 @@ export default function Home() {
                           ? { height: "auto", width: "100%" }
                           : { height: "100%", width: "100%" }
                       }
+                      key={`span${index}`}
                       variants={imageVariants}
                       initial="closed"
                       whileInView="open"
+                      exit="closed"
                       viewport={{ once: true }}
                     >
                       <Image
                         style={
                           item.imgAlt.includes("dummy")
                             ? {
+                                display: 'flex',
                                 height: "auto",
-                                maxWidth: "50%",
+                                width: "50%",
                                 pointerEvents: "none",
                               }
                             : {
@@ -311,8 +334,19 @@ export default function Home() {
               </Copyright>
             </TwoDimensionFooter>
           </TwoDimentionSection>
+            ) : (
+              <div
+              style={{
+                height: '100vh'
+              }}
+              >
+                {/* <p>Fiber Three JS</p> */}
+              </div>
+            )
+          }
+          
         </Main>
-        {/* </div> */}
+        </AnimatePresence>
       </div>
     </div>
   );

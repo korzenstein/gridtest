@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {motion} from 'framer-motion'
 
-export const Switch = styled(motion.div)`
+export const Switch = styled(motion.span)`
   min-width: 60px;
   height: 32px;
   border: 1px solid #404040;
@@ -41,9 +41,12 @@ export const SideBar = styled.div`
   position: absolute;
   height: 100%;
   z-index:20;
-
   top: 0;
   right: 0;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const SideBarExpanded = styled(motion.nav)`
@@ -64,13 +67,13 @@ export const SideBarExpanded = styled(motion.nav)`
   } */
 `;
 
-export const TopBar = styled.div`
+export const TopBar = styled(motion.div)`
   width: 100%;
   height: 3rem;
   display: flex;
-  justify-content:flex-start;
+  justify-content:space-between;
   align-items:center;
-  gap: 20rem;
+  /* gap: 20rem; */
   top: 0;
   left: 0;
   position: sticky;
@@ -78,10 +81,13 @@ export const TopBar = styled.div`
   border-bottom: 1px #404040 solid;
   background-color: ${(props) => props.bg ? `#202222`: `transparent`};
 
-  span {
+  span:nth-child(1) {
      z-index: 100;
-  
      margin: 14px 0 14px 20px;
+  }
+
+  span:nth-child(2) {
+     margin-right: 3rem;
   }
 
 `;
